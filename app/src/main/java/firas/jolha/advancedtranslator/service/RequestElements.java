@@ -1,6 +1,6 @@
-package android.example.gpsapp.service;
+package firas.jolha.advancedtranslator.service;
 
-import android.example.gpsapp.utils.Lang;
+import firas.jolha.advancedtranslator.utils.Lang;
 
 public class RequestElements {
     private String text;

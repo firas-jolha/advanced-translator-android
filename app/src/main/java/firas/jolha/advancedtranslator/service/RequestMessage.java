@@ -1,6 +1,6 @@
-package android.example.gpsapp.service;
+package firas.jolha.advancedtranslator.service;
 
-import android.example.gpsapp.utils.HttpHeader;
+import firas.jolha.advancedtranslator.utils.HttpHeader;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

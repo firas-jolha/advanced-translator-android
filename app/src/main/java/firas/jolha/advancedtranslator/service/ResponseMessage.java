@@ -1,4 +1,4 @@
-package android.example.gpsapp.service;
+package firas.jolha.advancedtranslator.service;
 
 import java.util.HashMap;
 

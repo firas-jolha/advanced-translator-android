@@ -4,8 +4,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "android.example.gpsapp"
-        minSdkVersion 23
+        applicationId "firas.jolha.advancedtranslator"
+        minSdkVersion 24 // 15
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -17,18 +17,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    configurations {
-        compile.exclude group: "junit", module: "junit"
-    }
+//    configurations {
+//        compile.exclude group: "junit", module: "junit"
+//    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    testImplementation ('junit:junit:4.13'){
+        exclude group: 'org.hamcrest'
+    }
     androidTestImplementation 'androidx.test:runner:1.3.0-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha03'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }

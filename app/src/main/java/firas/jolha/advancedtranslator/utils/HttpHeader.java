@@ -1,4 +1,4 @@
-package android.example.gpsapp.utils;
+package firas.jolha.advancedtranslator.utils;
 
 public enum HttpHeader {
     REQUEST_METHOD("Request-Method", "POST"),

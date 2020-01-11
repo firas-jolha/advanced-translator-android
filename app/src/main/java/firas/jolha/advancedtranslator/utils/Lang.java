@@ -1,4 +1,4 @@
-package android.example.gpsapp.utils;
+package firas.jolha.advancedtranslator.utils;
 
 import java.util.ArrayList;
 

@@ -6,85 +6,133 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/latitudeTextView"
+    <Spinner
+        android:id="@+id/fromLangSpinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/latText"
-        app:layout_constraintBottom_toTopOf="@+id/latText"
-        app:layout_constraintEnd_toEndOf="@+id/latText"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/latText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/g_map"
-        app:layout_constraintEnd_toStartOf="@+id/locateButton"
+        android:layout_marginBottom="8dp"
+        android:dropDownWidth="match_parent"
+        android:dropDownSelector="@android:drawable/checkbox_on_background"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow"
+        app:layout_constraintEnd_toStartOf="@+id/exchangeLanguageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/locateButton"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/exchangeLanguageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/change_lang_image_button_content_description"
+        android:src="@drawable/ic_change_lang_icon"
+        android:textAlignment="inherit"
+        app:backgroundTint="#FFFFFF"
+        app:fabSize="auto"
+        app:layout_constraintEnd_toEndOf="@+id/translateText"
+        app:layout_constraintStart_toStartOf="@+id/translateText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="24dp" />
+
+    <Switch
+        android:id="@+id/translateServiceSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:enabled="false"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="3dp"
+        android:text="Yandex"
+        app:layout_constraintBottom_toBottomOf="@+id/tableRow"
+        app:layout_constraintEnd_toEndOf="@+id/tableRow"
+        app:layout_constraintStart_toStartOf="@+id/tableRow"
+        app:layout_constraintTop_toTopOf="@+id/tableRow" />
+
+    <Spinner
+        android:id="@+id/toLangSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:dropDownWidth="match_parent"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/exchangeLanguageButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/translateText"
+        android:layout_width="0dp"
+        android:layout_height="283dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
         android:fontFamily="@font/aldrich"
-        android:text="@string/button_text"
-        android:textAlignment="center"
-        android:textSize="@dimen/button_text_size"
+        android:gravity="start"
+        android:hint="@string/translate_text_hint"
+        android:inputType="textMultiLine|text"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="15dp"
+        android:textSize="@dimen/translate_text_size"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tableRow" />
 
-    <TextView
-        android:id="@+id/longitudeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/lngText"
-        app:layout_constraintBottom_toTopOf="@+id/lngText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/lngText"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lngText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/g_map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/locateButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <fragment
-        android:id="@+id/g_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <EditText
+        android:id="@+id/outputText"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:gravity="start"
+        android:hint="@string/output_text_hint"
+        android:inputType="textMultiLine|text"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="15dp"
+        android:text="@string/translate_text"
+        android:textSize="@dimen/translate_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locateButton" />
+        app:layout_constraintTop_toBottomOf="@+id/translateText" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.090287276" />
+
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

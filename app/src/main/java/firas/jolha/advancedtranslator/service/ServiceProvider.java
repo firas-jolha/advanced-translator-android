@@ -1,4 +1,4 @@
-package android.example.gpsapp.service;
+package firas.jolha.advancedtranslator.service;
 
 public enum ServiceProvider {
     YANDEX("https://translate.yandex.net/api/v1.5/tr.json/translate", "trnsl.1.1.20200103T174915Z.bf0d375d35660b5c.5c230b73e56af2aac30cd21282774483a0ee0ba5"),

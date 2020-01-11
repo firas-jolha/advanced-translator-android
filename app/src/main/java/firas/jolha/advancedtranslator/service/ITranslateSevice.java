@@ -1,4 +1,4 @@
-package android.example.gpsapp.service;
+package firas.jolha.advancedtranslator.service;
 
 public interface ITranslateSevice {
 

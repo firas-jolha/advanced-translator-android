@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">GPS App</string>
-    <string name="button_text">Locate Me!</string>
-    <string name="latText">Latitude</string>
-    <string name="lngText">Longitude</string>
+    <string name="app_name">Advanced Translator</string>
     <string name="change_lang_text_button">Change Language</string>
     <string name="translate_text" />
     <string name="translate_text_hint">Write to Translate!</string>
