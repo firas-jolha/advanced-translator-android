@@ -1,6 +1,6 @@
 # advanced-translator-android
 
-Advanced Translator Android app is being developed to be a unique translator which will have different features that may be added in the future. 
+Advanced Translator Android app will be a unique translator app which will combine several features of different translate apps, like displaying images and helping in reading books. 
 please feel free to contact me for any suggesstions.
 THANKS.....
 
