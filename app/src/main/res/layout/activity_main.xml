@@ -13,19 +13,17 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:dropDownWidth="match_parent"
         android:dropDownSelector="@android:drawable/checkbox_on_background"
         android:gravity="center_horizontal|center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:textAlignment="gravity"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow"
         app:layout_constraintEnd_toStartOf="@+id/exchangeLanguageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/exchangeLanguageButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -34,25 +32,28 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/change_lang_image_button_content_description"
         android:src="@drawable/ic_change_lang_icon"
-        android:textAlignment="inherit"
-        app:backgroundTint="#FFFFFF"
-        app:fabSize="auto"
-        app:layout_constraintEnd_toEndOf="@+id/translateText"
-        app:layout_constraintStart_toStartOf="@+id/translateText"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@id/toLangSpinner"
+        app:layout_constraintStart_toEndOf="@id/fromLangSpinner"
         app:layout_constraintTop_toTopOf="parent"
-        app:maxImageSize="24dp" />
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
 
-    <Switch
-        android:id="@+id/translateServiceSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="3dp"
-        android:text="Yandex"
-        app:layout_constraintBottom_toBottomOf="@+id/tableRow"
-        app:layout_constraintEnd_toEndOf="@+id/tableRow"
-        app:layout_constraintStart_toStartOf="@+id/tableRow"
-        app:layout_constraintTop_toTopOf="@+id/tableRow" />
+        />
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/exchangeLanguageButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginStart="8dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:contentDescription="@string/change_lang_image_button_content_description"-->
+    <!--        android:src="@drawable/ic_change_lang_icon"-->
+    <!--        app:backgroundTint="#FFFFFF"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/translateText"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/translateText"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:maxImageSize="24dp" />-->
 
     <Spinner
         android:id="@+id/toLangSpinner"
@@ -61,13 +62,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
         android:dropDownWidth="match_parent"
         android:gravity="center"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:textAlignment="gravity"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/exchangeLanguageButton"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,14 +74,15 @@
     <EditText
         android:id="@+id/translateText"
         android:layout_width="0dp"
-        android:layout_height="283dp"
+        android:layout_height="180dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
         android:fontFamily="@font/aldrich"
         android:gravity="start"
         android:hint="@string/translate_text_hint"
+        android:importantForAutofill="no"
         android:inputType="textMultiLine|text"
         android:paddingLeft="20dp"
         android:paddingTop="15dp"
@@ -92,9 +92,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow" />
+        app:layout_constraintTop_toBottomOf="@+id/translateServiceRadioGroup" />
 
-    <EditText
+    <TextView
         android:id="@+id/outputText"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -105,11 +105,6 @@
         android:fontFamily="@font/aldrich"
         android:gravity="start"
         android:hint="@string/output_text_hint"
-        android:inputType="textMultiLine|text"
-        android:paddingLeft="20dp"
-        android:paddingTop="15dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="15dp"
         android:text="@string/translate_text"
         android:textSize="@dimen/translate_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -122,17 +117,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.090287276" />
+        app:layout_constraintGuide_percent="0.09" />
 
-    <TableRow
-        android:id="@+id/tableRow"
+    <RadioGroup
+        android:id="@+id/translateServiceRadioGroup"
         android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:checkedButton="@id/translateService1Button"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/translateText"
+        app:layout_constraintStart_toStartOf="@+id/translateText"
+        app:layout_constraintTop_toBottomOf="@id/guideline">
+
+        <RadioButton
+            android:id="@+id/translateService1Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translate_service1" />
+
+        <RadioButton
+            android:id="@+id/translateService2Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translate_service2" />
+
+        <RadioButton
+            android:id="@+id/translateService3Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translate_service3" />
+
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

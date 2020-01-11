@@ -4,19 +4,21 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,17 +30,17 @@ import firas.jolha.advancedtranslator.utils.Lang;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long DELAY = 1000; //milliseconds
     // choose service
     private ServiceProvider serviceProvider = ServiceProvider.YANDEX;
-    private static final long DELAY = 1000; //milliseconds
-
     // Views
     private Spinner fromLangSpinner = null;
     private Spinner toLangSpinner = null;
     private EditText translateText = null;
-    private EditText outputText = null;
-    private FloatingActionButton exchangeLangButton = null;
-    private Switch translateServiceSwitch = null;
+    private TextView outputText = null;
+    private ImageButton exchangeLangButton = null;
+    private RadioButton translateServiceSelected = null;
+    private RadioGroup translateServiceRadioGroup = null;
 
     // current activity
     private MainActivity current = this;
@@ -49,8 +51,35 @@ public class MainActivity extends AppCompatActivity {
         translateText = findViewById(R.id.translateText);
         outputText = findViewById(R.id.outputText);
         exchangeLangButton = findViewById(R.id.exchangeLanguageButton);
-        translateServiceSwitch = findViewById(R.id.translateServiceSwitch);
+        translateServiceRadioGroup = findViewById(R.id.translateServiceRadioGroup);
+
+        translateServiceSelected = findViewById(R.id.translateService1Button);
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        init();
+
+        initLangSpinner(fromLangSpinner);
+        initLangSpinner(toLangSpinner);
+        toLangSpinner.setOnItemSelectedListener(getFromLangSpinnerItemSelectedListener());
+        fromLangSpinner.setOnItemSelectedListener(getToLangSpinnerItemSelectedListener());
+
+        translateText.addTextChangedListener(getTextWatcher());
+
+
+        exchangeLangButton.setOnClickListener(getExchangeLangaugeOnClickListener());
+
+        translateServiceSelected.setOnCheckedChangeListener(getTranslateServiceOnCheckedChangeListener());
+        translateServiceSelected.setChecked(true);
+
+        translateServiceRadioGroup.setOnCheckedChangeListener(getTransalateServiceOnCheckedChangeListener());
+
+    } // OnCreate()
+
 
     private void initLangSpinner(Spinner langSpinner) {
         ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, Lang.getLangsArrayList());
@@ -179,30 +208,21 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private RadioGroup.OnCheckedChangeListener getTransalateServiceOnCheckedChangeListener() {
+        return new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.d("TS-RADIO-BUTTON", "checked id is " + checkedId);
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    if (checkedId == group.getChildAt(i).getId()) {
+                        serviceProvider = ServiceProvider.values()[i];
+                        translateText.setText(translateText.getText() + "");
+                        break;
+                    }
 
-        init();
+                }
 
-        initLangSpinner(fromLangSpinner);
-        initLangSpinner(toLangSpinner);
-        toLangSpinner.setOnItemSelectedListener(getFromLangSpinnerItemSelectedListener());
-        fromLangSpinner.setOnItemSelectedListener(getToLangSpinnerItemSelectedListener());
-
-        translateText.addTextChangedListener(getTextWatcher());
-
-
-        exchangeLangButton.setOnClickListener(getExchangeLangaugeOnClickListener());
-
-        translateServiceSwitch.setOnCheckedChangeListener(getTranslateServiceOnCheckedChangeListener());
-        translateServiceSwitch.setChecked(true);
-
-    } // OnCreate()
-
-    {
+            }
+        };
     }
-
-
 }

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.2"//"29.0.2"
     defaultConfig {
         applicationId "firas.jolha.advancedtranslator"
         minSdkVersion 24 // 15
@@ -17,9 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-//    configurations {
-//        compile.exclude group: "junit", module: "junit"
-//    }
+    configurations {
+        compile.exclude group: "org.hamcrest"
+    }
 }
 
 dependencies {

@@ -5,4 +5,7 @@
     <string name="translate_text_hint">Write to Translate!</string>
     <string name="output_text_hint" />
     <string name="change_lang_image_button_content_description">Change Language</string>
+    <string name="translate_service1">Yandex</string>
+    <string name="translate_service2">MyMemory</string>
+    <string name="translate_service3">SysTran</string>
 </resources>
