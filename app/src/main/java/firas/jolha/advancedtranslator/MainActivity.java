@@ -1,12 +1,16 @@
 package firas.jolha.advancedtranslator;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -16,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -28,7 +33,11 @@ import firas.jolha.advancedtranslator.service.RequestElements;
 import firas.jolha.advancedtranslator.service.ServiceProvider;
 import firas.jolha.advancedtranslator.utils.Lang;
 
+//import com.vk.sdk.util.VKUtil;
+
 public class MainActivity extends AppCompatActivity {
+
+    // Project SHA1 fingerprint 61E0995A7D78CA78DF72BD23E312FEAC16119473
 
     private static final long DELAY = 1000; //milliseconds
     // choose service
@@ -37,13 +46,18 @@ public class MainActivity extends AppCompatActivity {
     private Spinner fromLangSpinner = null;
     private Spinner toLangSpinner = null;
     private EditText translateText = null;
-    private TextView outputText = null;
+    private EditText outputText = null;
     private ImageButton exchangeLangButton = null;
     private RadioButton translateServiceSelected = null;
     private RadioGroup translateServiceRadioGroup = null;
+    private ImageButton clearTranslateTextButton = null;
+    private TextView inputTextLengthTextView = null;
 
     // current activity
     private MainActivity current = this;
+
+    //
+    private static String clipboardText = "";
 
     private void init() {
         fromLangSpinner = findViewById(R.id.fromLangSpinner);
@@ -54,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         translateServiceRadioGroup = findViewById(R.id.translateServiceRadioGroup);
 
         translateServiceSelected = findViewById(R.id.translateService1Button);
+
+        clearTranslateTextButton = findViewById(R.id.clearTranslateTextButton);
+        inputTextLengthTextView = findViewById(R.id.inputTextLengthTextView);
+
     }
 
     @Override
@@ -68,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
         toLangSpinner.setOnItemSelectedListener(getFromLangSpinnerItemSelectedListener());
         fromLangSpinner.setOnItemSelectedListener(getToLangSpinnerItemSelectedListener());
 
-        translateText.addTextChangedListener(getTextWatcher());
+        translateText.addTextChangedListener(getInputTextWatcher());
+
+//        outputText.addTextChangedListener(getOutputTextWatcher());
+        outputText.setOnTouchListener(getOutputTextOnTouchListener());
 
 
         exchangeLangButton.setOnClickListener(getExchangeLangaugeOnClickListener());
@@ -78,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
 
         translateServiceRadioGroup.setOnCheckedChangeListener(getTransalateServiceOnCheckedChangeListener());
 
+        clearTranslateTextButton.setOnClickListener(getClearTranslateTextOnClickListener());
+
+
+//        {
+//            String fingerprints[] = VKUtil.getCertificateFingerprint(this, getPackageName());
+//            Log.d("SHA1", fingerprints[0]);
+//        }
     } // OnCreate()
 
 
@@ -126,7 +154,26 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private TextWatcher getTextWatcher() {
+    private TextWatcher getOutputTextWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+    }
+
+    private TextWatcher getInputTextWatcher() {
         return new TextWatcher() {
             private Timer timer = new Timer();
 
@@ -137,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (translateText.getText().length() > 0) {
+                    clearTranslateTextButton.setVisibility(View.VISIBLE);
+                }
 //                Log.d("Text Changed", String.format("s = %s, start = %d, count = %d", s, start, count));
             }
 
@@ -179,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                                    }
                                }, DELAY
                 );
+                inputTextLengthTextView.setText(translateText.getText().length() + " char(s)");
             }
         };
     }
@@ -187,9 +238,36 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int temp = fromLangSpinner.getSelectedItemPosition();
-                fromLangSpinner.setSelection(toLangSpinner.getSelectedItemPosition());
-                toLangSpinner.setSelection(temp);
+                float xFrom = fromLangSpinner.getX();
+                float xTo = toLangSpinner.getX();
+
+                TranslateAnimation animation = new TranslateAnimation(0f, xTo
+                        , 0f, fromLangSpinner.getY());
+                animation.setRepeatMode(0);
+                animation.setDuration(500);
+                animation.setFillAfter(true);
+                fromLangSpinner.startAnimation(animation);
+                animation = new TranslateAnimation(0f, -xTo
+                        , 0f, toLangSpinner.getY());
+                animation.setDuration(500);
+                animation.setFillAfter(true);
+                toLangSpinner.startAnimation(animation);
+//                fromLangSpinner.setTranslationX(-xTo);
+//                toLangSpinner.setTranslationX(xTo);
+//                ObjectAnimator animator = ObjectAnimator.ofFloat(fromLangSpinner, "translationX", 500f);
+//                animator.setDuration(1000);
+//                animator.start();
+//                animator = ObjectAnimator.ofFloat(toLangSpinner, "translationX", -500f);
+//                animator.setDuration(1000);
+//                animator.start();
+
+                Spinner temp = fromLangSpinner;
+                fromLangSpinner = toLangSpinner;
+                toLangSpinner = temp;
+
+//                int temp = fromLangSpinner.getSelectedItemPosition();
+//                fromLangSpinner.setSelection(toLangSpinner.getSelectedItemPosition());
+//                toLangSpinner.setSelection(temp);
             }
         };
     }
@@ -225,4 +303,43 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+
+    private View.OnClickListener getClearTranslateTextOnClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                translateText.setText("");
+                clearTranslateTextButton.setVisibility(View.INVISIBLE);
+            }
+        };
+    }
+
+    private View.OnTouchListener getOutputTextOnTouchListener() {
+        return new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // From StackOverFlow
+//                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+//                    android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                    clipboard.setText(text);
+//                } else {
+//                    android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                    android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+//                    clipboard.setPrimaryClip(clip);
+//                }
+
+                if (outputText.getText().length() > 0 && !outputText.getText().toString().equals(clipboardText)) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    clipboardText = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
+
+                    ClipData clip = ClipData.newPlainText("Translated Text", outputText.getText());
+                    Toast.makeText(current, "Copied to Clipboard :)", Toast.LENGTH_LONG).show();
+                    clipboardManager.setPrimaryClip(clip);
+                    return true;
+                }
+                return false;
+            }
+        };
+    }
+
 }

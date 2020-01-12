@@ -2,7 +2,9 @@ package firas.jolha.advancedtranslator.service;
 
 public enum ServiceProvider {
     YANDEX("https://translate.yandex.net/api/v1.5/tr.json/translate", "trnsl.1.1.20200103T174915Z.bf0d375d35660b5c.5c230b73e56af2aac30cd21282774483a0ee0ba5"),
-    MYMEMORY("https://api.mymemory.translated.net/get", null);
+    MYMEMORY("https://api.mymemory.translated.net/get", null),
+    SYSTRAN("https://api-platform.systran.net/translation/text/translate", ""),
+    OCR("https://api.ocr.space/parse/imageurl", "6d7e1b174888957");
 
     enum Category {
         TRANSLATE, DETECT;

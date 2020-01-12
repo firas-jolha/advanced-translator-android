@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_text_size">24sp</dimen>
-    <dimen name="translate_text_size">20sp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
+    <dimen name="translate_text_size">16sp</dimen>
     <item name="output_text_height" type="dimen">50%</item>
 </resources>

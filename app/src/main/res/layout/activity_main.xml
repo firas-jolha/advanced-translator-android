@@ -6,40 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Spinner
-        android:id="@+id/fromLangSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:dropDownWidth="match_parent"
-        android:dropDownSelector="@android:drawable/checkbox_on_background"
-        android:gravity="center_horizontal|center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textAlignment="gravity"
-        app:layout_constraintEnd_toStartOf="@+id/exchangeLanguageButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/exchangeLanguageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/change_lang_image_button_content_description"
-        android:src="@drawable/ic_change_lang_icon"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toStartOf="@id/toLangSpinner"
-        app:layout_constraintStart_toEndOf="@id/fromLangSpinner"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-
-        />
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:id="@+id/exchangeLanguageButton"-->
     <!--        android:layout_width="wrap_content"-->
@@ -55,62 +21,33 @@
     <!--        app:layout_constraintTop_toTopOf="parent"-->
     <!--        app:maxImageSize="24dp" />-->
 
-    <Spinner
-        android:id="@+id/toLangSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:dropDownWidth="match_parent"
-        android:gravity="center"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textAlignment="gravity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/exchangeLanguageButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
-        android:id="@+id/translateText"
-        android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:gravity="start"
-        android:hint="@string/translate_text_hint"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine|text"
-        android:paddingLeft="20dp"
-        android:paddingTop="15dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="15dp"
-        android:textSize="@dimen/translate_text_size"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/translateServiceRadioGroup" />
-
-    <TextView
         android:id="@+id/outputText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="300dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:editable="true"
         android:ems="10"
-        android:fontFamily="@font/aldrich"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:fontFamily="@font/belgrano"
         android:gravity="start"
-        android:hint="@string/output_text_hint"
-        android:text="@string/translate_text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|text"
+        android:justificationMode="inter_word"
+        android:paddingStart="20dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="15dp"
+        android:textColor="#000000"
         android:textSize="@dimen/translate_text_size"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:verticalScrollbarPosition="right"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/translateText" />
+        app:layout_constraintTop_toBottomOf="@+id/translateViewsHorizontalLinearLayout" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -119,37 +56,105 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.09" />
 
+    <LinearLayout
+        android:id="@+id/topButtonsHorizontalLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Spinner
+            android:id="@+id/fromLangSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:dropDownWidth="match_parent"
+            android:dropDownSelector="@android:drawable/checkbox_on_background"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textAlignment="gravity" />
+
+        <ImageButton
+            android:id="@+id/exchangeLanguageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+
+            android:layout_margin="8dp"
+            android:layout_weight="2"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/change_lang_image_button_content_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_change_lang_icon" />
+
+        <Spinner
+            android:id="@+id/toLangSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:dropDownWidth="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textAlignment="gravity" />
+    </LinearLayout>
+
     <RadioGroup
         android:id="@+id/translateServiceRadioGroup"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:checkedButton="@id/translateService1Button"
         android:orientation="horizontal"
         android:paddingStart="20dp"
+        android:paddingTop="5dp"
         android:paddingEnd="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/translateText"
-        app:layout_constraintStart_toStartOf="@+id/translateText"
-        app:layout_constraintTop_toBottomOf="@id/guideline">
+        android:paddingBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topButtonsHorizontalLinearLayout">
 
         <RadioButton
             android:id="@+id/translateService1Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/translate_service1" />
+            android:layout_weight="1"
+            android:text="@string/translate_service1"
+            android:textSize="@dimen/button_text_size" />
 
         <RadioButton
             android:id="@+id/translateService2Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/translate_service2" />
+            android:layout_weight="1"
+            android:text="@string/translate_service2"
+            android:textSize="@dimen/button_text_size" />
 
         <RadioButton
             android:id="@+id/translateService3Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/translate_service3" />
+            android:layout_weight="1"
+            android:text="@string/translate_service3"
+            android:textSize="@dimen/button_text_size" />
+
+        <TextView
+            android:id="@+id/inputTextLengthTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="@dimen/translate_text_size" />
 
     </RadioGroup>
 
@@ -159,5 +164,74 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
+
+    <LinearLayout
+        android:id="@+id/translateViewsHorizontalLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/translateServiceRadioGroup">
+
+        <EditText
+            android:id="@+id/translateText"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:fontFamily="@font/belgrano"
+            android:gravity="start"
+            android:hint="@string/translate_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine|text"
+            android:justificationMode="inter_word"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="0dp"
+            android:textSize="@dimen/translate_text_size" />
+
+        <ImageButton
+            android:id="@+id/clearTranslateTextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_weight=".1"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:backgroundTint="@color/colorAccent"
+            android:backgroundTintMode="add"
+            android:contentDescription="@string/clear_text"
+            android:src="@android:drawable/ic_delete"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/outputText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/translateViewsHorizontalLinearLayout" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outputText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
