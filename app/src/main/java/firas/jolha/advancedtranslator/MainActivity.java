@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.io.File;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
@@ -52,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup translateServiceRadioGroup = null;
     private ImageButton clearTranslateTextButton = null;
     private TextView inputTextLengthTextView = null;
+    private ImageButton TTSTranslateTextButton = null;
+    private TextToSpeech textToSpeech = null;
 
     // current activity
-    private MainActivity current = this;
+//    private MainActivity current = this;
 
     //
     private static String clipboardText = "";
@@ -71,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         clearTranslateTextButton = findViewById(R.id.clearTranslateTextButton);
         inputTextLengthTextView = findViewById(R.id.inputTextLengthTextView);
+
+        TTSTranslateTextButton = findViewById(R.id.TTSTranslateTextButton);
 
     }
 
@@ -101,6 +108,24 @@ public class MainActivity extends AppCompatActivity {
 
         clearTranslateTextButton.setOnClickListener(getClearTranslateTextOnClickListener());
 
+        TTSTranslateTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        Log.e("TTS", "" + status);
+                        textToSpeech.setLanguage(Locale.CANADA);
+
+                        Log.e("TTS", "" + textToSpeech.speak(translateText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, ""));
+//                textToSpeech.speak(translateText.getText().toString(), TextToSpeech.QUEUE_ADD, null, "yes");
+//                        textToSpeech.synthesizeToFile(translateText.getText().toString(), null, new File("fff.wav"), "");
+                        Toast.makeText(MainActivity.this, "Saved in Disk", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        });
 
 //        {
 //            String fingerprints[] = VKUtil.getCertificateFingerprint(this, getPackageName());
@@ -202,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                                        {
                                            String[] perms = {"android.permission.INTERNET"};
                                            if (checkSelfPermission("android.permission.INTERNET") != PackageManager.PERMISSION_GRANTED) {
-                                               ActivityCompat.requestPermissions(current, perms, 1);
+                                               ActivityCompat.requestPermissions(MainActivity.this, perms, 1);
                                            }
                                            String output = "";
                                            try {
@@ -214,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                                                    output = text;
                                                } else {
 
-                                                   ServiceProvider serviceProvider = current.serviceProvider;
+                                                   ServiceProvider serviceProvider = MainActivity.this.serviceProvider;
                                                    RequestElements requestElements = new RequestElements(text, fromLang, toLang, serviceProvider);
 
                                                    output = new TranslateService().execute(requestElements).get();
@@ -333,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
                     clipboardText = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
 
                     ClipData clip = ClipData.newPlainText("Translated Text", outputText.getText());
-                    Toast.makeText(current, "Copied to Clipboard :)", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Copied to Clipboard :)", Toast.LENGTH_LONG).show();
                     clipboardManager.setPrimaryClip(clip);
                     return true;
                 }

@@ -196,17 +196,36 @@
             android:paddingBottom="0dp"
             android:textSize="@dimen/translate_text_size" />
 
-        <ImageButton
-            android:id="@+id/clearTranslateTextButton"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_weight=".1"
-            android:background="@color/common_google_signin_btn_text_dark_default"
-            android:backgroundTint="@color/colorAccent"
-            android:backgroundTintMode="add"
-            android:contentDescription="@string/clear_text"
-            android:src="@android:drawable/ic_delete"
-            android:visibility="invisible" />
+            android:layout_height="wrap_content"
+            android:layout_weight=".05"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/clearTranslateTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:backgroundTint="@color/colorAccent"
+                android:backgroundTintMode="add"
+                android:contentDescription="@string/clear_text"
+                android:src="@android:drawable/ic_delete"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/TTSTranslateTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:backgroundTint="@color/colorAccent"
+                android:backgroundTintMode="add"
+                android:contentDescription="@string/tts_translate_text_button_text"
+                android:src="@drawable/ic_tts_translate_text_icon"
+                android:visibility="visible" />
+        </LinearLayout>
 
     </LinearLayout>
 
