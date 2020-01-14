@@ -1,6 +1,7 @@
 package firas.jolha.advancedtranslator.utils;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public enum Lang {
     ENGLISH(0, "English", "en"),
@@ -15,6 +16,7 @@ public enum Lang {
     private int id;
     private String short_lang;
     private String long_lang;
+//    private Locale locale;
 
     public String getLong_lang() {
         return long_lang;
@@ -28,12 +30,22 @@ public enum Lang {
         return id;
     }
 
+//    public Locale getLocale() {
+//        return locale;
+//    }
+
     Lang(int id, String long_lang, String short_lang) {
         this.id = id;
         this.long_lang = long_lang;
         this.short_lang = short_lang;
     }
 
+//    Lang(int id, String short_lang, String long_lang, Locale locale) {
+//        this.id = id;
+//        this.short_lang = short_lang;
+//        this.long_lang = long_lang;
+//        this.locale = locale;
+//    }
 
     public static ArrayList<String> getLangsArrayList() {
         ArrayList<String> langs = new ArrayList<>();
@@ -42,4 +54,5 @@ public enum Lang {
         }
         return langs;
     }
+
 }

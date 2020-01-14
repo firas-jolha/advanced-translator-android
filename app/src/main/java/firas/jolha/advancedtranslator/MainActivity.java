@@ -26,7 +26,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import java.io.File;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private static final long DELAY = 1000; //milliseconds
     // choose service
     private ServiceProvider serviceProvider = ServiceProvider.YANDEX;
+    private Lang fromLang = Lang.ENGLISH;
+    private Lang toLang = Lang.RUSSIAN;
     // Views
     private Spinner fromLangSpinner = null;
     private Spinner toLangSpinner = null;
@@ -115,7 +116,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onInit(int status) {
                         Log.e("TTS", "" + status);
-                        textToSpeech.setLanguage(Locale.CANADA);
+
+                        if (Lang.values()[fromLangSpinner.getSelectedItemPosition()]==Lang.ARABIC){
+                            textToSpeech.setLanguage(Locale.forLanguageTag("ar_EG"));
+                        }else {
+                            textToSpeech.setLanguage(Locale.forLanguageTag(Lang.values()[fromLangSpinner.getSelectedItemPosition()].getShort_lang()));
+                        }
 
                         Log.e("TTS", "" + textToSpeech.speak(translateText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, ""));
 //                textToSpeech.speak(translateText.getText().toString(), TextToSpeech.QUEUE_ADD, null, "yes");
